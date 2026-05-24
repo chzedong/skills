@@ -1,0 +1,3 @@
+name: 代码审查
+description: 对 TypeScript / JavaScript 源码进行架构和安全性审查
+triggers: [review, 审查, code review, 代码审查, 审阅]

@@ -1,0 +1,3 @@
+name: RAG 问答增强
+description: 基于检索上下文进行精确问答，擅长引用源代码进行解释
+triggers: [RAG, 检索, 源码分析, source code, 架构, 解释, 为什么]
