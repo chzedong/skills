@@ -204,6 +204,9 @@ HTML 样式规范：
    # 设置代理
    export https_proxy=http://127.0.0.1:7890 http_proxy=http://127.0.0.1:7890 all_proxy=socks5://127.0.0.1:7890
 
+   # 更新导航（扫描所有 HTML 并同步到 index.html）
+   node scripts/update-nav.js
+   
    # 提交并推送
    cd chzedong.github.io
    git add .

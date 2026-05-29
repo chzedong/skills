@@ -194,6 +194,23 @@
       padding: 48px 56px 80px;
     }
 
+    /* ----- Sidebar Backdrop (mobile overlay) ----- */
+    .sidebar-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.35);
+      z-index: 99;
+      opacity: 0;
+      transition: opacity 200ms ease;
+      pointer-events: none;
+    }
+
+    .sidebar-backdrop.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
     /* ----- Header ----- */
     .page-header {
       margin-bottom: 40px;
@@ -778,8 +795,13 @@
 
     /* ----- Responsive ----- */
     @media (max-width: 1024px) {
+      .sidebar-backdrop {
+        display: block;
+      }
+
       .sidebar {
         transform: translateX(-100%);
+        box-shadow: var(--shadow-lg);
       }
 
       .sidebar.open {
@@ -792,9 +814,13 @@
       }
     }
 
-    @media (max-width: 640px) {
+    @media (max-width: 768px) {
+      .main {
+        padding: 24px 18px;
+      }
+
       .page-header h1 {
-        font-size: 24px;
+        font-size: 26px;
       }
 
       section h2 {
@@ -805,8 +831,69 @@
         font-size: 17px;
       }
 
+      pre {
+        font-size: 12px;
+        padding: 16px 18px;
+      }
+
+      table {
+        font-size: 12px;
+      }
+
+      th, td {
+        padding: 8px 10px;
+      }
+
+      .reading-path li {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+      }
+
+      .reading-path .step-file {
+        min-width: auto;
+      }
+
+      .dir-tree {
+        font-size: 11px;
+        padding: 12px 14px;
+      }
+
       .module-grid {
         grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .main {
+        padding: 16px 12px;
+      }
+
+      .page-header h1 {
+        font-size: 22px;
+      }
+
+      section h2 {
+        font-size: 18px;
+      }
+
+      section h3 {
+        font-size: 16px;
+      }
+
+      .page-nav {
+        flex-direction: column;
+        gap: 12px;
+        align-items: flex-start;
+      }
+
+      .sidebar {
+        width: 85vw;
+        max-width: 300px;
+      }
+
+      .flow-steps li {
+        padding-left: 30px;
       }
     }
 
@@ -846,7 +933,30 @@
     </aside>
     <main class="main" id="main-content"> {{CONTENT}} </main>
   </div><!-- Mobile sidebar toggle -->
-  <script>  (function () {    // Only add toggle on mobile    if (window.innerWidth > 1024) return;    const btn = document.createElement('button');    btn.textContent = '☰ 目录';    btn.style.cssText = 'position:fixed;bottom:20px;right:20px;z-index:200;padding:10px 16px;border-radius:24px;border:none;background:var(--color-primary);color:#fff;font-size:14px;font-weight:600;cursor:pointer;box-shadow:var(--shadow-lg);';    btn.onclick = function() {      document.getElementById('sidebar').classList.toggle('open');    };    document.body.appendChild(btn);  })();</script>
+  <script>
+    (function () {
+      if (window.innerWidth > 1024) return;
+
+      var sidebar = document.getElementById('sidebar');
+
+      var backdrop = document.createElement('div');
+      backdrop.className = 'sidebar-backdrop';
+      backdrop.onclick = function () {
+        sidebar.classList.remove('open');
+        backdrop.classList.remove('open');
+      };
+      document.body.appendChild(backdrop);
+
+      var btn = document.createElement('button');
+      btn.textContent = '☰ 目录';
+      btn.style.cssText = 'position:fixed;bottom:20px;right:20px;z-index:200;padding:10px 16px;border-radius:24px;border:none;background:var(--color-primary);color:#fff;font-size:14px;font-weight:600;cursor:pointer;box-shadow:var(--shadow-lg);';
+      btn.onclick = function () {
+        sidebar.classList.toggle('open');
+        backdrop.classList.toggle('open');
+      };
+      document.body.appendChild(btn);
+    })();
+  </script>
 </body>
 
 </html>
