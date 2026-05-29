@@ -39,7 +39,7 @@
 | 4 | 算法与数据结构 | Parser / AST / Diff / 调度算法，含核心思想+复杂度 |
 | 5 | GitHub 历史分析（可选） | 关键 commit、高讨论 Issue、Release 路线图 |
 | 6 | 规模评估 | 小型→单页面，大型→多页面模块化拆解 |
-| 7 | 生成 HTML | 使用 template.html 为基础，含 Mermaid 图、代码高亮、暗色模式 |
+| 7 | 生成 HTML | 使用 template.html 为基础，含 Mermaid 图、代码高亮、暗色模式。输出到 `chzedong.github.io/` 并自动提交推送 |
 
 ## 文档结构（单页面）
 
@@ -62,6 +62,7 @@ Header（项目名、简介、徽章、GitHub 链接）
 
 ## 关键约束
 
+- **输出与部署**：HTML 文件必须生成到 `chzedong.github.io/<库名>/` 目录下。生成完成后自动执行 `git add . && git commit -m "docs: deconstruct <库名>" && git push origin main`（推送前设置代理环境变量）
 - **只读操作**：分析过程只读取仓库文件，不修改任何内容
 - **快速上手优先**：深度分析前提供 3-5 行最小可运行示例 + 2-3 个常见场景示例
 - **图表用 Mermaid**：复杂流程图 / 架构图 / 依赖图 / 时序图使用 `<pre class="mermaid">` 嵌入，每个图下加说明 caption；简单结构用纯文本描述

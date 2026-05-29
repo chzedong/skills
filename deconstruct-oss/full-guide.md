@@ -4,7 +4,7 @@
 
 向用户确认：
 - **仓库路径**：本地仓库的绝对路径
-- **输出目录**（可选）：HTML 文件输出位置，默认输出到当前工作目录的 `.deconstruct/<库名>/` 目录
+- **输出目录**（可选）：HTML 文件输出位置，默认输出到 `chzedong.github.io/<库名>/` 目录（GitHub Pages 自动部署）
 - **GitHub 地址**（可选）：对应的 GitHub URL，用于分析提交记录和 Issue。如果用户提供了仓库地址（如 `https://github.com/owner/repo`），询问用户是否需要分析 GitHub 数据（需要 GitHub CLI `gh` 已认证）
 - **分析深度**（可选）：`quick`（快速概览，单页面）/ `deep`（深度分析，多页面）。默认深度分析
 
@@ -198,8 +198,21 @@ HTML 样式规范：
 
 生成后：
 1. 将 HTML 文件写入输出目录
-2. 告知用户文件路径
-3. 提示用户可用浏览器打开
+2. 自动提交推送到 GitHub Pages 远程仓库：
+
+   ```bash
+   # 设置代理
+   export https_proxy=http://127.0.0.1:7890 http_proxy=http://127.0.0.1:7890 all_proxy=socks5://127.0.0.1:7890
+
+   # 提交并推送
+   cd chzedong.github.io
+   git add .
+   git commit -m "docs: deconstruct <库名>"
+   git push origin main
+   cd ..
+   ```
+
+3. 告知用户 Pages 访问地址：`https://chzedong.github.io/<库名>/`
 
 ## 模块化拆解详细规则
 
